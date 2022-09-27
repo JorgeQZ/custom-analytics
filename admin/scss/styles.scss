@@ -1,0 +1,22 @@
+.toplevel_page_expopyme-analytics-admin-page {
+    #wpbody-content{
+
+            padding-right: 20px;
+            width: calc(100% - 20px);
+            h1{
+                background-color: #430026;
+                height: 50px;
+                line-height: 1;
+                color: white;
+                display: flex;
+                align-items: center;
+                padding: 10px;
+            }
+
+            hr{
+                height: 1px;
+                background-color: #430026
+            }
+        }
+
+}
