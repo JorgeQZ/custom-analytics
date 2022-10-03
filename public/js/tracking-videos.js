@@ -1,40 +1,8 @@
 $ = jQuery;
 
-/**
- * Bucle de IDs de videos de youtube
- * Descripcion: Para hacer el track del tiempo en vistas de videos, se debe obtener los
- * minutos de reproducción de cada video
- */
-let videos_loaded = $('.expo-video');
-let videos_items = [];
-let item_data;
-
-videos_loaded.each(function (index, item) {
-    item_data = { 'yt_ID': $(item).attr('data-yt-id'), 'vid_ID': $(item).attr('id') }
-    videos_items.push(item_data)
-});
-
-let player_videos = [];
-function onYouTubeIframeAPIReady() {
-    videos_items.forEach(function (item, index) {
-        player_videos[item.yt_ID] = new YT.Player(item.vid_ID, {
-            height: '350',
-            videoId: item.yt_ID,
-            autoplay: 0,
-            color: 'white',
-            rel: 0,
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        })
-    });
-}
-
 // The API will call this function when the video player is ready.
 function onPlayerReady(event) {
     // console.log(event.target);
-
 }
 
 // The API calls this function when the player's state changes.
@@ -43,6 +11,7 @@ function onPlayerReady(event) {
 var done = false;
 let currentYtID;
 function onPlayerStateChange(event) {
+    console.log('cambio de estado');
     currentYtID = $(event.target.g).attr('id');
     if (!isVideoOnLocalStorage(currentYtID) || isVideoOnLocalStorage(currentYtID) === null) {
         // createLocalStorageItem(currentYtID)
@@ -73,3 +42,49 @@ function isVideoOnLocalStorage(video_id) {
 function createLocalStorageItem(video_id, time) {
     localStorage.setItem(video_id, time);
 }
+
+function labnolIframe(div) {
+
+    console.log(div);
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', 'https://www.youtube.com/embed/' + $(div).attr('data-yt-id') + '?autoplay=0&rel=0');
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allowfullscreen', '1');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+    div.parentNode.replaceChild(iframe, div);
+
+    let player = new YT.Player($(div).attr('data-video-id'), {
+        height: '350',
+        videoId: $(div).attr('data-yt-id'),
+        autoplay: 0,
+        color: 'white',
+        rel: 0,
+        events: {
+            // 'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    })
+}
+
+function initYouTubeVideos() {
+    var playerElements = document.getElementsByClassName('expo-video');
+    for (var n = 0; n < playerElements.length; n++) {
+        var ytID = $(playerElements[n]).attr('data-yt-id');
+        var videoId = $(playerElements[n]).attr('id');
+        var div = document.createElement('div');
+        div.setAttribute('data-yt-id', ytID);
+        div.setAttribute('data-video-id', videoId);
+        var thumbNode = document.createElement('img');
+        thumbNode.src = '//i.ytimg.com/vi/ID/hqdefault.jpg'.replace('ID', ytID);
+        div.appendChild(thumbNode);
+        var playButton = document.createElement('div');
+        playButton.setAttribute('class', 'play');
+        div.appendChild(playButton);
+        div.onclick = function () {
+            labnolIframe(this);
+        };
+        playerElements[n].appendChild(div);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initYouTubeVideos);

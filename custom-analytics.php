@@ -53,6 +53,7 @@ function ca_admin_public_script() {
     wp_enqueue_script('jquery');
     // wp_enqueue_script( 'script', plugins_url() . '/custom-analytics/public/js/tracking-videos.js', array ( 'jquery' ), 1.1, true);
     wp_enqueue_style('expo-videos',plugins_url() . '/custom-analytics/public/css/expo-videos.css');
+     wp_enqueue_script( 'lista-videos', plugins_url() . '/custom-analytics/public/js/lista-videos.js', array ( 'jquery' ), 1.1, true);
 }
 add_action('wp_enqueue_scripts', 'ca_admin_public_script');
 
