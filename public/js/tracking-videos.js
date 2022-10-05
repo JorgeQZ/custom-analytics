@@ -47,7 +47,7 @@ function labnolIframe(div) {
 
     console.log(div);
     var iframe = document.createElement('iframe');
-    iframe.setAttribute('src', 'https://www.youtube.com/embed/' + $(div).attr('data-yt-id') + '?autoplay=0&rel=0');
+    iframe.setAttribute('src', 'https://www.youtube.com/embed/' + $(div).attr('data-yt-id') + '?autoplay=0&rel=0&enablejsapi=1&color=white');
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', '1');
     iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
