@@ -75,7 +75,7 @@ function initYouTubeVideos() {
         div.setAttribute('data-yt-id', ytID);
         div.setAttribute('data-video-id', videoId);
         var thumbNode = document.createElement('img');
-        thumbNode.src = '//i.ytimg.com/vi/ID/hqdefault.jpg'.replace('ID', ytID);
+        thumbNode.src = '//i.ytimg.com/vi/ID/maxresdefault.jpg'.replace('ID', ytID);
         div.appendChild(thumbNode);
         var playButton = document.createElement('div');
         playButton.setAttribute('class', 'play');
